@@ -1,0 +1,71 @@
+
+// A binary tree node 
+class Node {
+	int data;
+	Node left, right;
+
+	Node(int item) {
+		data = item;
+		left = right = null;
+	}
+}
+
+class BinaryTree {
+	Node root;
+
+	void printkdistanceNodeDown(Node node, int k) {
+		if (node == null || k < 0) {
+			return;
+		}
+		if (k == 0) {
+			System.out.println(node.data);
+			return;
+		}
+		printkdistanceNodeDown(node.left, k - 1);
+		printkdistanceNodeDown(node.right, k - 1);
+	}
+
+	int printkdistanceNode(Node node, Node target, int k) {
+		if (node == null)
+			return -1;
+
+		if (node.data == target.data) {
+			printkdistanceNodeDown(node, k); //the method within will delgate 
+			return k;
+		}
+		int l = printkdistanceNode(node.left, target, k);
+
+		if (l > 0) {
+			if (l == 1)
+				System.out.println(node.data);
+			else
+				printkdistanceNodeDown(node.right, k - 2); 
+			return k - 1;
+		}
+
+		int r = printkdistanceNode(node.right, target, k);
+
+		if (r > 0) {
+			if (r == 1)
+				System.out.println(node.data);
+			else
+				printkdistanceNodeDown(node.left, k - 2); // we are delegating left subtree
+			return k - 1;
+		}
+		return -1;
+	}
+
+	public static void main(String args[]) {
+		BinaryTree tree = new BinaryTree();
+		// taken from gfg for dummy data
+		tree.root = new Node(20);
+		tree.root.left = new Node(8);
+		tree.root.right = new Node(22);
+		tree.root.left.left = new Node(4);
+		tree.root.left.right = new Node(12);
+		tree.root.left.right.left = new Node(10);
+		tree.root.left.right.right = new Node(14);
+		Node target = tree.root.left.right;
+		tree.printkdistanceNode(tree.root, target, 1);
+	}
+}
