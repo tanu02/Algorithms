@@ -1,0 +1,95 @@
+
+// Connect nodes at same level using level order 
+// traversal. 
+import java.util.LinkedList;
+import java.util.Queue;
+
+public class CornerNodeAlternate {
+
+	// Node class
+	static class Node {
+		int data;
+		Node left, right, nextRight;
+
+		Node(int data) {
+			this.data = data;
+			left = null;
+			right = null;
+			nextRight = null;
+		}
+	};
+
+	// Sets nextRight of all nodes of a tree
+	static void printCorner(Node root) {
+		Queue<Node> q = new LinkedList<Node>();
+		int flag = 1, count = 0; // change flag from 1 to 0. The spiral order will other way around
+		Node prev = null;
+		q.add(root);
+
+		// null marker to represent end of current level
+		q.add(null);
+
+		// Do Level order of tree using NULL markers
+		while (!q.isEmpty()) {
+			Node node = q.poll();			
+			if (node != null) {
+
+				if (flag == 0 && count == 0) {
+					System.out.println(node.data);
+					count++;
+				}
+				if(node.left != null)
+						q.add(node.left);
+				if(node.right != null)
+					q.add(node.right);
+				prev = node;
+			}
+			else if (!q.isEmpty()) {
+				q.add(null);
+				if (flag == 1) {
+					System.out.println(prev.data);
+					prev = null;
+					flag = 0;
+					count = 0;
+				}
+				if (count > 0) {
+					flag = 1;
+					count = 0;
+				}					
+		}
+	}
+		if(prev != null) System.out.println(prev.data);
+	}
+
+	/* Driver program to test above functions */
+	public static void main(String args[]) {
+	
+		// dummy taken from gfg
+	/*	Node root = new Node(10);
+		root.left = new Node(8);
+		root.right = new Node(2);
+		root.left.left = new Node(3);
+		root.right.right = new Node(90);*/
+		 Node root = new Node(1);
+		root.left = new Node(2); 
+	    root.right = new Node(3); 
+	  
+	    root.left.left  = new Node(4); 
+	    root.left.right = new Node(5); 
+	    root.right.right = new Node(7); 
+	  
+	    root.left.left.left  = new Node(8); 
+	    root.left.left.right  = new Node(9); 
+	    root.left.right.left  = new Node(10); 
+	    root.left.right.right  = new Node(11); 
+	    root.right.right.left  = new Node(14); 
+	    root.right.right.right  = new Node(15); 
+	  
+	    root.left.left.left.left  = new Node(16); 
+	    root.left.left.left.right  = new Node(17); 
+	    root.right.right.right.right  = new Node(31); 
+
+		// Populates nextRight pointer in all nodes
+		printCorner(root);	
+	}
+}
