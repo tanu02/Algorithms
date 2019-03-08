@@ -1,0 +1,52 @@
+ 
+
+class Maximum_left_node_in_binary_tree { 
+
+// A Binary Tree Node 
+static class Node { 
+	int data; 
+	Node left, right; 
+} 
+//--------------------------------------------------
+static int getMaxFromLeft(Node node) 
+{ 
+	if(node == null) return 0;
+	
+	int l1  = getMaxFromLeft(node.left);
+	int l2  = getMaxFromLeft(node.right);
+	
+	int currLeft = 0;
+	if(node.left != null)
+		currLeft = node.left.data;
+	
+	return Math.max(currLeft, Math.max(l1, l2));
+	
+} 
+//--------------------------------------------------
+// Utility function to create a new tree node 
+static Node newNode(int data) 
+{ 
+	Node temp = new Node(); 
+	temp.data = data; 
+	temp.left = null; 
+	temp.right = null; 
+	return temp; 
+} 
+
+// Driver program to test above functions 
+public static void main(String[] args) 
+{ 
+		
+	Node root = newNode(1); 
+	root.left = newNode(2); 
+	root.right = newNode(3); 
+	root.left.left = newNode(4);
+	root.left.left.right = newNode(7);
+	root.right.right= newNode(6);
+	root.right.left = newNode(5);
+	root.right.left.left = newNode(8);
+	root.right.left.right = newNode(9);
+	
+	System.out.println(getMaxFromLeft(root)); 
+} 
+} 
