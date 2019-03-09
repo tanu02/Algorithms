@@ -1,0 +1,28 @@
+
+class MaximumDiffrence {
+	static void maxDiff(int arr[]) {
+
+		int n = arr.length;
+		int currMin = 0, diff = 0, temp = 0, min = 0, max = 0;
+
+		for (int i = 1; i < n; i++) {
+			if (arr[i] >= arr[currMin]) {
+				temp = arr[i] - arr[currMin];
+				if (temp > diff) {
+					diff = temp;
+					min = currMin;
+					max = i;
+				}
+			} else {
+				currMin = i;
+			}
+		}
+		System.out.println("Maximum Difference is " + diff + " start index " + min + " end index " + max);
+
+	}
+
+	public static void main(String[] args) {
+		int arr[] = { 80, 2, 6, 3, 100 };
+		maxDiff(arr);
+	}
+}
