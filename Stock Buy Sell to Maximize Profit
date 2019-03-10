@@ -1,0 +1,55 @@
+import java.util.ArrayList;
+import java.util.List;
+
+public class Stock {
+
+	public static void main(String[] args) {
+	//	int price[] = { 10, 18, 26, 31, 4, 53, 69 };
+		int price[] = {23, 13, 25, 29, 33, 19, 34, 45, 65, 67};
+		List<Span> list = findStocks(price);
+		printStocks(list);
+	}
+
+	public static List<Span> findStocks(int arr[]) {
+		List<Span> list = new ArrayList<Span>();
+		int n = arr.length;
+		int i = 0, st = 0;
+		while (i < n - 1) {
+
+			// get the lowest value
+			while (i < n - 1 && arr[i + 1] <= arr[i])
+				i++;
+			
+			st = i;
+			
+			while (i < n - 1 && arr[i + 1] > arr[i])
+				i++;
+
+			if (i > st) {
+				Span sp = new Span();
+				sp.buy = st;
+				sp.sell = i;
+				list.add(sp);
+				i = i+1;
+			}
+
+		}
+
+		return list;
+	}
+
+	static void printStocks(List<Span> list) {
+		if (!list.isEmpty())
+			for (Span span : list) {
+				System.out.println(" Buy " + span.buy + " Sell " + span.sell);
+			}
+		else {
+			System.out.println("List is Empty");
+		}
+	}
+
+}
+
+class Span {
+	int buy, sell;
+}
