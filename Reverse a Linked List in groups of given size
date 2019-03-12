@@ -1,0 +1,72 @@
+
+public class Driver {
+
+	public static void main(String[] args) {
+
+		Utility rv = new Utility();
+
+		rv.enqueue(9);
+		rv.enqueue(8);
+		rv.enqueue(7);
+		rv.enqueue(6);
+		rv.enqueue(5);
+		rv.enqueue(4);
+		rv.enqueue(3);
+		rv.enqueue(2);
+		rv.enqueue(1);
+
+		int k = 3;
+		Node newHead = reverseKSize(Utility.head, k);
+		rv.printList(newHead);
+	}
+
+	public static Node reverseKSize(Node b, int k) {
+
+		if (b == null)
+			return null;
+		Node head = b;
+		Node a = null, c = null;
+		int count = 1;
+		while (count++ <= k && b != null) {
+			c = b.next;
+			b.next = a;
+			a = b;
+			b = c;
+		}
+
+		if (b == null)
+			return a;
+
+		head.next = reverseKSize(b, k);
+		return a;
+
+	}
+
+}
+
+ class Utility {
+	static Node head = null;	
+	public void enqueue(int val) {
+		Node node = new Node(val);
+		node.next = head;
+		head = node;
+	}
+
+	void printList(Node node) {
+		Node temp = node;
+		while (temp != null) {
+			System.out.print(temp.data + " ");
+			temp = temp.next;
+		}
+		System.out.println();
+	}
+}
+
+class Node {
+	Node next;
+	int data;
+
+	Node(int val) {
+		this.data = val;
+	}
+}
