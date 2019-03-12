@@ -1,0 +1,98 @@
+
+public class Driver {
+
+	public static void main(String[] args) {
+		
+		Reverse rv = new Reverse();
+		rv.enqueue(7);
+		rv.enqueue(6);
+		rv.enqueue(5);
+		rv.enqueue(4);
+		rv.enqueue(3);
+		rv.enqueue(2);
+		rv.enqueue(1);
+		rv.printList(rv.head);
+		
+		Node x = rv.head;
+		
+		//-----------------------------
+		//iterate to reverse
+		Node node1  = rv.reverseIteration();
+		rv.printList(node1);
+		
+		//-----------------------------
+		//recursion using one variable
+		//Node head = rv.reverseRecursion1(rv.head);
+		//rv.printList(head);
+		
+		//-----------------------------
+		//recursion with 2 variables
+		//rv.printList(rv.reverseRecursion(null, rv.head));
+		
+	}
+
+}
+
+class Node {
+	Node next;
+	int data;
+	Node(int val){
+		this.data = val;
+	}
+}
+
+ class Reverse {
+	
+	static Node head = null;	
+	
+	public Node reverseIteration(){
+		Node a = null, b = head , c = null;
+		while(b != null) {
+			c = b.next;
+			b.next = a;
+			a = b;
+			b = c;
+		}
+		
+		return a;
+	}
+
+	public Node reverseRecursion(Node a, Node b) {
+		if(b == null) return a;
+		Node c = null;
+		if(b != null) {
+			c = b.next;
+			b.next = a;
+			a = b;
+			b = c;
+		}
+		return reverseRecursion(a, b);
+		
+	}
+	public Node reverseRecursion1(Node node) {
+		if(node == null || node.next == null)
+			return node;
+		
+		
+		Node newHead= reverseRecursion1(node.next); 
+		
+		node.next.next = node;
+		node.next = null;
+		
+		return newHead;
+	}
+	public void enqueue(int val) {
+		Node node = new Node(val);
+		node.next = head;
+		head = node;
+	}
+
+	void printList(Node node) {
+		Node temp = node;
+		while (temp != null) {
+			System.out.print(temp.data + " ");
+			temp = temp.next;
+		}
+		System.out.println();
+	}
+}
