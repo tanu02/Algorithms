@@ -1,0 +1,63 @@
+
+public class Driver {
+
+	public static void main(String[] args) {
+
+		Utility rv = new Utility();
+		rv.enqueue(6);
+		rv.enqueue(5);
+		rv.enqueue(4);
+		rv.enqueue(3);
+		rv.enqueue(2);
+		rv.enqueue(1);
+		
+		int k = 6;
+		Node newHead = rotate(Utility.head, k);
+		rv.printList(newHead);
+	}
+	
+	public static Node rotate(Node node, int k) {
+		int count = 1;
+		Node head = node, end;
+		while(count++ < k && node != null) {
+			node = node.next;
+		}
+		if(node == null) return node;
+		end = node;
+		while(node.next != null)
+			node = node.next;
+		
+		node.next = head;
+		head = end.next;
+		end.next = null;
+		return head;
+	}
+
+}
+
+class Utility {
+	static Node head = null;	
+	public void enqueue(int val) {
+		Node node = new Node(val);
+		node.next = head;
+		head = node;
+	}
+
+	void printList(Node node) {
+		Node temp = node;
+		while (temp != null) {
+			System.out.print(temp.data + " ");
+			temp = temp.next;
+		}
+		System.out.println();
+	}
+}
+
+class Node {
+	Node next;
+	int data;
+
+	Node(int val) {
+		this.data = val;
+	}
+}
