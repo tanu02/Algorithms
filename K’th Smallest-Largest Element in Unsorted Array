@@ -1,0 +1,63 @@
+
+public class Driver {
+
+	public static void main(String args[]) {
+		int arr[] = { 7, 10, 4, 3, 20, 15 };
+		int k = 50;
+		if (k > arr.length)
+			System.out.println("No val exists");
+		else {
+			QuickSelect qSort = new QuickSelect();
+			qSort.quickSelect(arr, 0, arr.length - 1, k);
+
+			System.out.println(arr[k - 1]);
+		}
+	}
+
+}
+//---------------
+
+class QuickSelect {
+
+	int k = 0;
+
+	public void quickSelect(int[] arr, int start, int end, int k) {
+		this.k = k - 1;
+		kthLargest(arr, start, end);
+	}
+
+	public void kthLargest(int[] arr, int start, int piv) {
+
+		if (piv > start) {
+			int partition = getPartition(arr, start, piv);
+
+			if (partition == k)
+				return;
+			if (partition > k)
+				kthLargest(arr, start, partition - 1);
+			else
+				kthLargest(arr, partition + 1, piv);
+		}
+
+	}
+
+	public int getPartition(int[] arr, int start, int piv) {
+		int j = start; // location of the pivot
+
+		for (int i = start; i < piv; i++) {
+			if (arr[i] <= arr[piv])
+				swap(arr, i, j++);
+		}
+
+		// for pivot
+		swap(arr, j, piv);
+		return j;
+	}
+
+	public void swap(int[] arr, int index1, int index2) {
+		int temp = arr[index1];
+		arr[index1] = arr[index2];
+		arr[index2] = temp;
+	}
+}
+
