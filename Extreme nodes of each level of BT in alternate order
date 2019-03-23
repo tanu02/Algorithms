@@ -17,7 +17,7 @@ public class CornerNodeAlternate {
 			right = null;
 			nextRight = null;
 		}
-	};
+	}
 
 	// Sets nextRight of all nodes of a tree
 	static void printCorner(Node root) {
@@ -39,57 +39,59 @@ public class CornerNodeAlternate {
 					count++;
 				}
 				if(node.left != null)
-						q.add(node.left);
+					q.add(node.left);
 				if(node.right != null)
 					q.add(node.right);
 				prev = node;
 			}
-			else if (!q.isEmpty()) {
-				q.add(null);
+			else {
 				if (flag == 1) {
 					System.out.println(prev.data);
 					prev = null;
 					flag = 0;
 					count = 0;
 				}
-				if (count > 0) {
-					flag = 1;
-					count = 0;
-				}					
+				if (!q.isEmpty()) {
+					q.add(null);
+					if (count > 0) {
+						flag = 1;
+						count = 0;
+					}
+				}
+			}
 		}
 	}
-		if(prev != null) System.out.println(prev.data);
-	}
+
 
 	/* Driver program to test above functions */
-	public static void main(String args[]) {
-	
-		// dummy taken from gfg
+public static void main(String args[]) {
+
+	// dummy taken from gfg
 	/*	Node root = new Node(10);
 		root.left = new Node(8);
 		root.right = new Node(2);
 		root.left.left = new Node(3);
 		root.right.right = new Node(90);*/
-		 Node root = new Node(1);
-		root.left = new Node(2); 
-	    root.right = new Node(3); 
-	  
-	    root.left.left  = new Node(4); 
-	    root.left.right = new Node(5); 
-	    root.right.right = new Node(7); 
-	  
-	    root.left.left.left  = new Node(8); 
-	    root.left.left.right  = new Node(9); 
-	    root.left.right.left  = new Node(10); 
-	    root.left.right.right  = new Node(11); 
-	    root.right.right.left  = new Node(14); 
-	    root.right.right.right  = new Node(15); 
-	  
-	    root.left.left.left.left  = new Node(16); 
-	    root.left.left.left.right  = new Node(17); 
-	    root.right.right.right.right  = new Node(31); 
+	Node root = new Node(1);
+	root.left = new Node(2); 
+	root.right = new Node(3); 
 
-		// Populates nextRight pointer in all nodes
-		printCorner(root);	
-	}
+	root.left.left  = new Node(4); 
+	root.left.right = new Node(5); 
+	root.right.right = new Node(7); 
+
+	root.left.left.left  = new Node(8); 
+	root.left.left.right  = new Node(9); 
+	root.left.right.left  = new Node(10); 
+	root.left.right.right  = new Node(11); 
+	root.right.right.left  = new Node(14); 
+	root.right.right.right  = new Node(15); 
+
+	root.left.left.left.left  = new Node(16); 
+	root.left.left.left.right  = new Node(17); 
+	root.right.right.right.right  = new Node(31); 
+
+	// Populates nextRight pointer in all nodes
+	printCorner(root);	
+}
 }
